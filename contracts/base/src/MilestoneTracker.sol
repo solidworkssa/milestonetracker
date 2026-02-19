@@ -2,8 +2,11 @@
 pragma solidity ^0.8.20;
 
 /// @title MilestoneTracker Contract
+/// @author solidworkssa
 /// @notice Project milestone tracking with escrow payments.
 contract MilestoneTracker {
+    string public constant VERSION = "1.0.0";
+
 
     struct Project {
         address client;

@@ -29,9 +29,9 @@
 
 (define-public (create-project (provider principal) (amount uint))
     (let ((id (var-get project-nonce)))
-        (try! (stx-transfer? amount tx-sender (as-contract tx-sender)))
+        (try! (stx-transfer? amount contract-caller (as-contract contract-caller)))
         (map-set projects id {
-            client: tx-sender,
+            client: contract-caller,
             provider: provider,
             total-amount: amount,
             released: u0
@@ -43,8 +43,8 @@
 
 (define-public (release-milestone (id uint) (amount uint))
     (let ((p (unwrap! (map-get? projects id) (err u404))))
-        (asserts! (is-eq tx-sender (get client p)) (err u401))
-        (try! (as-contract (stx-transfer? amount tx-sender (get provider p))))
+        (asserts! (is-eq contract-caller (get client p)) (err u401))
+        (try! (as-contract (stx-transfer? amount contract-caller (get provider p))))
         (map-set projects id (merge p {released: (+ (get released p) amount)}))
         (ok true)
     )

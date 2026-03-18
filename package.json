@@ -44,5 +44,9 @@
     "project-management",
     "escrow",
     "tracking"
-  ]
+  ],
+  "dependencies": {
+    "@winsznx/sdk": "0.1.0",
+    "@winsznx/react": "0.1.0"
+  }
 }
